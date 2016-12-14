@@ -1,4 +1,5 @@
 ﻿
+
 <#   
 ========= Generalize-AzureRmVm.ps1 ======================================= 
  Name: Generalize-AzureRmVm 
