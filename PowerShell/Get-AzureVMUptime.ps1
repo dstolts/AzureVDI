@@ -10,26 +10,11 @@ Param (
                     ValueFromPipelineByPropertyName=$true)]
     [Alias("Name")]
     [string[]]$ComputerName=$env:COMPUTERNAME,
-    [string[]]$AzureRunAs="AzureRunAsConnection" ,
+    [Parameter(Mandatory=$false)][string]$AzureRunAs="AzureRunAsConnection" ,
     [Parameter(Mandatory=$false)][string]$RGName,                 # Pops List to select default
     [Parameter(Mandatory=$false)][string]$Location,               # Defaults to Location of Resource Group
     [Parameter(Mandatory=$false)][string]$SubscriptionID          # Subscription to create RG in
 ) 
-
-
-write-host "Using Service Account Credentials from = 
-try
-{
-    # Get the connection "AzureRunAsConnection "
-    $servicePrincipalConnection=Get-AutomationConnection -Name $AzureRunAs         
-
-    "Logging in to Azure..."
-    Add-AzureRmAccount `
-        -ServicePrincipal `
-        -TenantId $servicePrincipalConnection.TenantId `
-        -ApplicationId $servicePrincipalConnection.ApplicationId `
-        -CertificateThumbprint $servicePrincipalConnection.CertificateThumbprint 
-} 
 
 # Sign-in with Azure account credentials
 Try
@@ -48,6 +33,23 @@ Catch [Exception]
     #    Write-Host $_
     #    $_ | Select *
 }
+
+
+<#
+$AzureRunAs="AzureRunAsVM"
+try
+{
+    # Get the connection "AzureRunAsConnection "
+    $servicePrincipalConnection=Get-AzurermAutomationConnection -Name $AzureRunAs        
+    write-host "Using Azure Service Account Credentials from = $AzureRunAs"
+    Write-Host "Logging in to Azure..."
+    Add-AzureRmAccount `
+        -ServicePrincipal `
+        -TenantId $servicePrincipalConnection.TenantId `
+        -ApplicationId $servicePrincipalConnection.ApplicationId `
+        -CertificateThumbprint $servicePrincipalConnection.CertificateThumbprint 
+} 
+#>
 
 #Check if parameters supplied  
 If ($SubscriptionID -eq "") {
