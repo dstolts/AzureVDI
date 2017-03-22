@@ -14,8 +14,8 @@ If ($myString1 -eq "") {
     }
 Write-Host "myString1 is: $myString1"
 
-If ($myString2 -eq "") { # do something  
-Write-Host "Parameter myString2 is empty"  }
+If ($myString2 -eq "") { # do something 
+Write-Host "Parameter myString2 is empty"}
 Write-Host "myString2 is: $myString2"
 
 # Display help... coming soon.
@@ -25,9 +25,9 @@ If ($help) {
        ./PowerShellParameters.ps1 "String1 Value" "String 2 Value" -help 
        ./PowerShellParameters.ps1 -myString2 "String 2 Value" -help -myString1 "String 1 Value" 
         
-       [Parameter(Mandatory=$false)][string]$myString1,  `# A string value  
-       [Parameter(Mandatory=$false)][string]$myString2,  `# another string  
-       [Parameter(Mandatory=$false)][switch]$helpÂ       `# switch... If it is there, the value will be $true
-    " -ForegroundColor Green
+       [Parameter(Mandatory=$false)][string]$myString1, `# A string value 
+       [Parameter(Mandatory=$false)][string]$myString2, `# another string 
+       [Parameter(Mandatory=$false)][switch]$helpÂ       `# switch... If it is there, the value will be `$true
+       " -ForegroundColor Green
 } 
 

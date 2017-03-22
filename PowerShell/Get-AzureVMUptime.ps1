@@ -1,16 +1,55 @@
 ﻿# Select Azure Account, Select Resource group or optionally create new resource group
 # Includes checking for multiple subscriptions before offering to select subscription.  If only one, then uses it.
 
-# Sign-in with Azure account credentials
-Add-AzureAccount
-Login-AzureRmAccount
 #region Evaluate Parameters; Create Defaults Values
 
 Param (
-    [Parameter(Mandatory=$false)][string]$Location,               # Defaults to Location of Resource Group
+    [Parameter(Mandatory=$false,
+                    Position=0,
+                    ValueFromPipeline=$true,
+                    ValueFromPipelineByPropertyName=$true)]
+    [Alias("Name")]
+    [string[]]$ComputerName=$env:COMPUTERNAME,
+    [Parameter(Mandatory=$false)][string]$AzureRunAs="AzureRunAsConnection" ,
     [Parameter(Mandatory=$false)][string]$RGName,                 # Pops List to select default
+    [Parameter(Mandatory=$false)][string]$Location,               # Defaults to Location of Resource Group
     [Parameter(Mandatory=$false)][string]$SubscriptionID          # Subscription to create RG in
 ) 
+
+# Sign-in with Azure account credentials
+Try
+{
+    # Probably want to change this to certificate auth
+    Write-Host "Checking Azure Login"
+    $TestSubscription = Get-AzureRmSubscription
+    #Get-WMIObject Win32_Service -ComputerName localhost -Credential (Get-Credential) -ErrorAction "Stop"
+}
+Catch [Exception]
+{
+    Write-Host "Need to Login"
+    # Sign-in with Azure account credentials
+    $AzureLogin = Login-AzureRmAccount
+    Write-Host "Logged into Azure" -ForegroundColor Green
+    #    Write-Host $_
+    #    $_ | Select *
+}
+
+
+<#
+$AzureRunAs="AzureRunAsVM"
+try
+{
+    # Get the connection "AzureRunAsConnection "
+    $servicePrincipalConnection=Get-AzurermAutomationConnection -Name $AzureRunAs        
+    write-host "Using Azure Service Account Credentials from = $AzureRunAs"
+    Write-Host "Logging in to Azure..."
+    Add-AzureRmAccount `
+        -ServicePrincipal `
+        -TenantId $servicePrincipalConnection.TenantId `
+        -ApplicationId $servicePrincipalConnection.ApplicationId `
+        -CertificateThumbprint $servicePrincipalConnection.CertificateThumbprint 
+} 
+#>
 
 #Check if parameters supplied  
 If ($SubscriptionID -eq "") {
@@ -42,6 +81,11 @@ If ($RGName -eq "") {
         $RGName = $myRG.ResourceGroupName  # Grab the ResourceGroupName
         $Location = $myRG.Location       # Grab the ResourceGroupLocation (region)
     }  #else user pressed escape, will need to create RG 
+
+
+
+
+
 }
 # make sure the RG exists
 $RgExists = Get-AzureRmResourceGroup | Where {$_.ResourceGroupName -eq $RGName }  # See if the RG exists.  If user pressed escape on drop box or passed a name that does not exist
