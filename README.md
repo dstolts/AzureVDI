@@ -1,5 +1,5 @@
 ## ALIP
-Accenture ALIP VDI integration.
+ALIP VDI integration.
 
 
 ## Resources
