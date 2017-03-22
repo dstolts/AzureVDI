@@ -8,8 +8,8 @@
        Using parameters and evaluating parameters
        Populating a GridView and allowing a user to select a subscription from list of available subs
      
- Author: Jessica Dean - blog URL?
-         Dan Stolts - dstolts&microsoft.com - http://ITProGuru.com
+ Authors: Dan Stolts - dstolts&microsoft.com - http://ITProGuru.com
+          Jessica Dean 
          Script Home: http://ITProGuru.com/Scripts 
  Syntax/Execution: 
       Copy portion of script you want to use and paste into PowerShell (or ISE)
