@@ -1,5 +1,5 @@
-## ALIP
-ALIP VDI integration.
+## VDI
+Creating VDI on Azure.
 
 
 ## Resources
