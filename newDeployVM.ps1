@@ -9,7 +9,7 @@
 $imageURL = "https://hackathontempstorage.blob.core.windows.net/images/Hackathon120161213133540.vhd"
 
 Login-AzureRmAccount
-
+$sshKeyData = "ssh ENTER YOUR ssh KEY HERE!"
 #Create UniqueID for StorageAccount
 #$uniq_user = $env:USERPROFILE.Split('\')[2]
 #$azunique = -join ([char[]](48..57+97..122)*100 | Get-Random -Count 12)
@@ -162,7 +162,7 @@ Write-Output @"
       "value": "customimage"
     },
     "sshKeyData": {
-      "value": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDB0UcT8Fm/mBMKtKzPcBaCVTYA8Ii6MKYPADAWB1lKlw1wG6N+pJdNsvSqb4m7xk/HmtvMojw0CMXKSJdDq/qNprdst3sgnxdCHFhA8eBQc4AFPgg8KkzZ6MLnSfJYwZRDGEe3wjQS480LSazUExGsuQoMxzBRtJsQ02MB/N8ouGrShZp5NK51mjfhlffbkENMQNmhTsfW33ZZP32gLCeXzgZmv/Cwo6144Q4VPUFFl5wl3/VfdGyWLiZyIPGzhU4yPR+ibDxR/X1WQN290y1vAj7tz/qq6XiWYTEAEgsc2NRgiL00CoN3kgBpU8Dh/evm87BDLZ8IYNhWNPIzQV3/ tdradmin@tdrbox"
+      "value": "$sshKeyData"
     },
     "vmSize": {
       "value": "Standard_DS1"
